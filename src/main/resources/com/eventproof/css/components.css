@@ -1,0 +1,14 @@
+.card { -fx-background-color: -ep-card; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #2A3A52; -fx-padding: 22; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 14, 0, 0, 4); }
+.page-title { -fx-font-size: 29px; -fx-font-weight: bold; }
+.section-title { -fx-font-size: 17px; -fx-font-weight: bold; }
+.small-heading { -fx-font-size: 13px; -fx-font-weight: bold; }
+.demo-badge { -fx-background-color: #23324A; -fx-background-radius: 5; -fx-padding: 7 10; -fx-text-fill: #B2C4DE; -fx-font-size: 10px; -fx-font-weight: bold; }
+.badge { -fx-padding: 6 10; -fx-background-radius: 5; -fx-font-size: 10px; -fx-font-weight: bold; }
+.success { -fx-background-color: #173D32; -fx-text-fill: #6EE7A0; }
+.warning { -fx-background-color: #443722; -fx-text-fill: #FBC66D; }
+.danger { -fx-background-color: #442A35; -fx-text-fill: #FDA4AF; }
+.icon-button { -fx-background-color: transparent; -fx-padding: 6; }
+.icon-button .ikonli-font-icon { -fx-icon-color: -ep-muted; -fx-icon-size: 19px; }
+.progress-bar { -fx-pref-height: 6; -fx-background-color: transparent; }
+.progress-bar > .track { -fx-background-color: #314158; -fx-background-radius: 4; -fx-border-width: 0; }
+.progress-bar > .bar { -fx-background-color: -ep-secondary; -fx-background-radius: 4; -fx-background-insets: 0; -fx-padding: 3; }

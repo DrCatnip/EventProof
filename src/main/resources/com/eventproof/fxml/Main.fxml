@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.MainController" styleClass="app-root">
+  <fx:define><ToggleGroup fx:id="navigation"/></fx:define>
+  <top><HBox alignment="CENTER_LEFT" spacing="16" styleClass="topbar">
+    <FontIcon iconLiteral="fth-shield" styleClass="brand-icon"/>
+    <Label text="EVENTPROOF" styleClass="brand"/>
+    <Label text="OPERATIONS CONSOLE" styleClass="eyebrow"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label text="DEMO WORKSPACE" styleClass="demo-badge"/>
+    <Button styleClass="icon-button" accessibleText="Notifications coming soon" disable="true"><graphic><FontIcon iconLiteral="fth-bell"/></graphic><tooltip><Tooltip text="Notifications coming soon"/></tooltip></Button>
+    <Button styleClass="icon-button" accessibleText="Settings coming soon" disable="true"><graphic><FontIcon iconLiteral="fth-settings"/></graphic></Button>
+  </HBox></top>
+  <left><VBox spacing="8" prefWidth="222" styleClass="sidebar">
+    <Label text="WORKSPACE" styleClass="eyebrow,nav-caption"/>
+    <ToggleButton fx:id="dashboardButton" text="Dashboard" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-grid"/></graphic></ToggleButton>
+    <ToggleButton text="Events" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-calendar"/></graphic></ToggleButton>
+    <ToggleButton text="Venues" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-map-pin"/></graphic></ToggleButton>
+    <ToggleButton text="Incidents" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-alert-triangle"/></graphic></ToggleButton>
+    <Label text="ASSESSMENT" styleClass="eyebrow,nav-caption"/>
+    <ToggleButton text="Reliability" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-activity"/></graphic></ToggleButton>
+    <ToggleButton text="Simulation" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-zap"/></graphic></ToggleButton>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox spacing="8" styleClass="sidebar-note"><Label text="Built for better events" styleClass="small-heading"/><Label text="Readiness. Resilience. Reliability." wrapText="true" styleClass="muted"/></VBox>
+    <ToggleButton text="Settings" toggleGroup="$navigation" onAction="#navigate" styleClass="nav-button" maxWidth="Infinity"><graphic><FontIcon iconLiteral="fth-settings"/></graphic></ToggleButton>
+    <Label text="EVENTPROOF  /  v0.1" styleClass="eyebrow,nav-caption"/>
+  </VBox></left>
+  <center><VBox><HBox styleClass="breadcrumb-bar"><Label fx:id="breadcrumb" styleClass="muted"/></HBox><StackPane fx:id="contentArea" VBox.vgrow="ALWAYS"/></VBox></center>
+</BorderPane>

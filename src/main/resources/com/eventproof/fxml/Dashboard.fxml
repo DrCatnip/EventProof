@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<!-- All metrics, factors and event rows below are STATIC DEMO DATA; no score algorithm exists yet. -->
+<ScrollPane xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.DashboardController" fitToWidth="true" hbarPolicy="NEVER" styleClass="dashboard-scroll">
+<content><VBox fx:id="dashboardContent" spacing="22" styleClass="dashboard-content">
+  <HBox alignment="CENTER_LEFT"><VBox spacing="7"><Label text="Event Reliability" styleClass="page-title"/><Label text="Monitor and assess the operational readiness of your events." styleClass="muted"/></VBox><Region HBox.hgrow="ALWAYS"/><Label text="STATIC DEMO DATA" styleClass="demo-badge"/></HBox>
+  <HBox spacing="20" styleClass="card,reliability-card" alignment="CENTER_LEFT">
+    <VBox spacing="14" HBox.hgrow="ALWAYS"><Label text="WORKSPACE RELIABILITY" styleClass="eyebrow"/><Label text="Ready for what’s next." styleClass="hero-title"/><Label text="A snapshot of your event operations." styleClass="muted"/><HBox spacing="10" alignment="CENTER_LEFT"><Label text="LOW RISK" styleClass="badge,success"/><Label text="Sample assessment" styleClass="muted"/></HBox><Label text="Illustrative score · not calculated from live events" styleClass="footnote"/></VBox>
+    <StackPane minWidth="180" prefWidth="180" minHeight="180"><Circle radius="76" fill="TRANSPARENT" stroke="#2E3E56" strokeWidth="10"/><Circle radius="76" fill="TRANSPARENT" stroke="#06B6D4" strokeWidth="10" strokeDashArray="410, 478" rotate="-90"/><VBox alignment="CENTER" spacing="0"><Label text="86" styleClass="score"/><Label text="/ 100" styleClass="muted"/><Label text="RELIABILITY" styleClass="ring-caption"/></VBox></StackPane>
+  </HBox>
+  <HBox spacing="16"><VBox spacing="10" styleClass="card,stat-card" HBox.hgrow="ALWAYS" prefWidth="240"><HBox alignment="CENTER_LEFT"><Label text="Total Events" styleClass="muted"/><Region HBox.hgrow="ALWAYS"/><FontIcon iconLiteral="fth-calendar" styleClass="stat-icon"/></HBox><Label text="12" styleClass="stat-value"/><Label text="Across the demo workspace" styleClass="footnote"/></VBox>
+<VBox spacing="10" styleClass="card,stat-card" HBox.hgrow="ALWAYS" prefWidth="240"><HBox alignment="CENTER_LEFT"><Label text="Venues" styleClass="muted"/><Region HBox.hgrow="ALWAYS"/><FontIcon iconLiteral="fth-map-pin" styleClass="stat-icon"/></HBox><Label text="8" styleClass="stat-value"/><Label text="Spaces ready for assessment" styleClass="footnote"/></VBox>
+<VBox spacing="10" styleClass="card,stat-card" HBox.hgrow="ALWAYS" prefWidth="240"><HBox alignment="CENTER_LEFT"><Label text="Active Incidents" styleClass="muted"/><Region HBox.hgrow="ALWAYS"/><FontIcon iconLiteral="fth-alert-triangle" styleClass="stat-icon"/></HBox><Label text="3" styleClass="stat-value"/><Label text="Demo issues awaiting review" styleClass="footnote"/></VBox></HBox>
+  <HBox spacing="18">
+    <VBox spacing="17" styleClass="card" HBox.hgrow="ALWAYS" prefWidth="540">
+      <HBox alignment="CENTER_LEFT"><Label text="Upcoming Events" styleClass="section-title"/><Region HBox.hgrow="ALWAYS"/><Label text="3 DEMO EVENTS" styleClass="eyebrow"/></HBox>
+      <HBox styleClass="table-heading"><Label text="EVENT" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Label text="SCORE" minWidth="65"/><Label text="RISK" minWidth="83"/></HBox>
+      <HBox spacing="12" alignment="CENTER_LEFT" styleClass="event-row"><Label text="01" styleClass="event-number"/><VBox spacing="5" HBox.hgrow="ALWAYS"><Label text="Tech Fest" styleClass="small-heading"/><Label text="Technical · Main auditorium" styleClass="footnote"/></VBox><Label text="86" styleClass="event-score" minWidth="45"/><Label text="LOW" styleClass="badge,success" minWidth="83" alignment="CENTER"/></HBox>
+<HBox spacing="12" alignment="CENTER_LEFT" styleClass="event-row"><Label text="02" styleClass="event-number"/><VBox spacing="5" HBox.hgrow="ALWAYS"><Label text="Sports Meet" styleClass="small-heading"/><Label text="Sports · College grounds" styleClass="footnote"/></VBox><Label text="72" styleClass="event-score" minWidth="45"/><Label text="MEDIUM" styleClass="badge,warning" minWidth="83" alignment="CENTER"/></HBox>
+<HBox spacing="12" alignment="CENTER_LEFT" styleClass="event-row"><Label text="03" styleClass="event-number"/><VBox spacing="5" HBox.hgrow="ALWAYS"><Label text="Cultural Fest" styleClass="small-heading"/><Label text="Cultural · Open-air stage" styleClass="footnote"/></VBox><Label text="54" styleClass="event-score" minWidth="45"/><Label text="HIGH" styleClass="badge,danger" minWidth="83" alignment="CENTER"/></HBox>
+      <Label text="Sample events for the foundation preview." styleClass="footnote"/>
+    </VBox>
+    <VBox spacing="17" styleClass="card" prefWidth="330" minWidth="270" HBox.hgrow="ALWAYS">
+      <Label text="Reliability Factors" styleClass="section-title"/>
+      <VBox spacing="7"><HBox spacing="9" alignment="CENTER_LEFT"><FontIcon iconLiteral="fth-users" styleClass="factor-icon"/><Label text="Attendance Capacity" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Label text="90%" styleClass="muted"/></HBox><ProgressBar progress="0.9" maxWidth="Infinity"/><Label text="Within venue limits" styleClass="footnote"/></VBox>
+<VBox spacing="7"><HBox spacing="9" alignment="CENTER_LEFT"><FontIcon iconLiteral="fth-zap" styleClass="factor-icon"/><Label text="Backup Power" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Label text="85%" styleClass="muted"/></HBox><ProgressBar progress="0.85" maxWidth="Infinity"/><Label text="Standby supply available" styleClass="footnote"/></VBox>
+<VBox spacing="7"><HBox spacing="9" alignment="CENTER_LEFT"><FontIcon iconLiteral="fth-wifi" styleClass="factor-icon"/><Label text="Backup Internet" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Label text="80%" styleClass="muted"/></HBox><ProgressBar progress="0.8" maxWidth="Infinity"/><Label text="Secondary connection ready" styleClass="footnote"/></VBox>
+<VBox spacing="7"><HBox spacing="9" alignment="CENTER_LEFT"><FontIcon iconLiteral="fth-clock" styleClass="factor-icon"/><Label text="Incident History" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Label text="88%" styleClass="muted"/></HBox><ProgressBar progress="0.88" maxWidth="Infinity"/><Label text="Sample historical readiness" styleClass="footnote"/></VBox>
+    </VBox>
+  </HBox>
+  <HBox spacing="8" alignment="CENTER_LEFT"><FontIcon iconLiteral="fth-info" styleClass="factor-icon"/><Label text="Foundation preview · Live event data and assessments arrive in later stages." styleClass="footnote"/></HBox>
+</VBox></content></ScrollPane>

@@ -1,0 +1,8 @@
+target/
+.maven-repository/
+*.log
+.env
+.idea/
+*.iml
+database.properties
+.vscode/*.local.json
