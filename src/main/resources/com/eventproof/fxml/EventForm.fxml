@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.form.EventFormController" spacing="10" prefWidth="450">
+<Label text="Event name"/><TextField fx:id="name" promptText="e.g. Technical workshop"/>
+<Label text="Event type"/><ComboBox fx:id="type" maxWidth="Infinity"/>
+<Label text="Date"/><DatePicker fx:id="date" maxWidth="Infinity"/>
+<Label text="Expected attendance"/><TextField fx:id="attendance" promptText="0 or more"/>
+<Label text="Venue"/><ComboBox fx:id="venue" maxWidth="Infinity"/>
+<Label text="Over-capacity attendance is allowed and reflected in the reliability score." wrapText="true" styleClass="footnote"/>
+</VBox>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.form.VenueFormController" spacing="12" prefWidth="450">
+<Label text="Venue name"/><TextField fx:id="name" promptText="e.g. Main auditorium"/>
+<Label text="Capacity"/><TextField fx:id="capacity" promptText="Greater than zero"/>
+<CheckBox fx:id="power" text="Backup power available"/>
+<CheckBox fx:id="internet" text="Backup internet available"/>
+<Label text="Backup facilities directly affect event reliability." styleClass="footnote" wrapText="true"/>
+</VBox>

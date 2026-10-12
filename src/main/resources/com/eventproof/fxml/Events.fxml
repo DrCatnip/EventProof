@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.EventController" spacing="20" styleClass="workspace-page">
+<HBox alignment="CENTER_LEFT" spacing="14"><VBox spacing="6"><Label text="Events" styleClass="page-title"/><Label text="Plan your events and monitor their readiness." styleClass="muted"/></VBox><Region HBox.hgrow="ALWAYS"/><Button fx:id="addButton" text="Add event" onAction="#add" styleClass="primary-button"><graphic><FontIcon iconLiteral="fth-plus"/></graphic></Button></HBox>
+<HBox spacing="12" alignment="CENTER_LEFT"><TextField fx:id="search" promptText="Search events, venues or IDs..." HBox.hgrow="ALWAYS"/><ComboBox fx:id="filter" prefWidth="160"/><Button text="Refresh" onAction="#refresh"><graphic><FontIcon iconLiteral="fth-refresh-cw"/></graphic></Button></HBox>
+<TableView fx:id="table" VBox.vgrow="ALWAYS"/>
+<HBox spacing="12"><Button fx:id="editButton" text="Edit" onAction="#editSelected"><graphic><FontIcon iconLiteral="fth-edit-2"/></graphic></Button><Button fx:id="deleteButton" text="Delete" onAction="#deleteSelected" styleClass="danger-button"><graphic><FontIcon iconLiteral="fth-trash-2"/></graphic></Button><Region HBox.hgrow="ALWAYS"/><Button fx:id="assessButton" text="View reliability" onAction="#assessSelected"><graphic><FontIcon iconLiteral="fth-activity"/></graphic></Button></HBox>
+<HBox alignment="CENTER_LEFT" spacing="10"><ProgressIndicator fx:id="busy" prefWidth="18" prefHeight="18" visible="false" managed="false"/><Label fx:id="status" text="Ready" wrapText="true" styleClass="muted"/></HBox>
+</VBox>

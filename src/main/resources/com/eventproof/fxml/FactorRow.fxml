@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.FactorController" spacing="8">
+<HBox spacing="10"><Label fx:id="title" styleClass="small-heading" maxWidth="Infinity" HBox.hgrow="ALWAYS"/><Label fx:id="deduction" styleClass="factor-value"/></HBox>
+<ProgressBar fx:id="bar" maxWidth="Infinity"/>
+<Label fx:id="explanation" wrapText="true" styleClass="footnote"/>
+</VBox>

@@ -1,273 +1,165 @@
 # EventProof
 
-Event Reliability Management System — a college Advanced OOP Java desktop project.
-Stages 1 and 2 provide a working operations dashboard and an Advanced OOP core:
-validated models, JDBC CRUD, service boundaries and category-specific reliability
-strategies. Every GUI dashboard value remains static demo data.
+Event Reliability Management System: a Java desktop project for Advanced OOP.
+Stage 3 connects the Stage 2 models, services, strategies and JDBC DAOs to a
+complete JavaFX workspace.
 
-See [Stage 2 / Review 2 guide](docs/STAGE2.md) for the rules, OOP examples,
-architecture diagrams and database verification steps.
+## Working features
 
-## What works
+- Events: add, edit, delete, search, category filter, venue association and score/risk badges.
+- Venues: add, edit, delete, search, capacity and power/internet backup settings.
+- Incidents: add, edit, delete, search and event association.
+- Reliability: derived score, risk level and four explained deductions.
+- Simulation: four temporary failure scenarios, animated score, risk badge and reset.
+- Dashboard: database counts, upcoming events, readiness and portfolio average.
+- AtlantaFX dark theme, EventProof CSS, Ikonli icons and subtle transitions.
+- FXML forms, validation messages, deletion confirmation and background JDBC tasks.
 
-- Dark AtlantaFX PrimerDark theme with EventProof CSS and Feather icons.
-- FXML main window, selected sidebar navigation, dashboard and module placeholders.
-- Reliability preview (86/100, low risk), statistics, upcoming events and factor bars.
-- Restrained dashboard entrance and page fade animations; navigation hover feedback.
-- Independent JDBC connection infrastructure and an opt-in connection diagnostic.
-- GUI starts without MySQL or database credentials.
-- Abstract Event with TechnicalEvent, SportsEvent and CulturalEvent subclasses.
-- Venue and Incident models, validation exceptions and database error handling.
-- Three-table MySQL schema and transactional, prepared-statement JDBC CRUD.
-- Reliability strategy interface, score breakdown and low/medium/high risk levels.
-- In-memory console demonstration for Review 2.
+Settings remains a placeholder; header notification/settings buttons are disabled.
+The application can open without credentials and displays a connection message.
+It needs MySQL for real records; there is no silent in-memory production fallback.
 
-Events, Venues, Incidents, Reliability, Simulation and Settings currently show
-placeholders. Header notification/settings controls are reserved for future work.
-CRUD and reliability calculation work in the core layer. Their GUI forms, failure
-simulation and schema migrations are scheduled for later stages.
+See [Stage 3 implementation and demonstration guide](docs/STAGE3.md) for the
+changed files, scoring rules and complete teacher demonstration workflow.
+[Stage 2 / Review 2 guide](docs/STAGE2.md) explains the OOP core.
 
-## Stack and prerequisites
+## Requirements
 
-Install JDK **25**, Maven **3.9+**, VS Code with **Extension Pack for Java**, and
-Scene Builder (a current version supporting your FXML runtime). MySQL 8.0.16+ is
-needed for JDBC CRUD and enforced schema constraints.
-
-Pinned dependencies:
+JDK **25**, Maven **3.9+**, MySQL **8.0.16+**, and an interactive Windows desktop.
+VS Code's Extension Pack for Java and Scene Builder are useful for development.
 
 | Dependency | Version |
 | --- | --- |
 | JavaFX controls / FXML | 27 |
 | AtlantaFX base | 3.0.0 |
-| Ikonli JavaFX / Feather pack | 12.4.0 |
+| Ikonli JavaFX / Feather | 12.4.0 |
 | MySQL Connector/J | 9.6.0 |
-| JUnit Jupiter (tests only) | 5.12.2 |
+| JUnit Jupiter (tests) | 5.12.2 |
 
-JavaFX 27 requires JDK 25 or later ([official release notes](https://docs.oracle.com/en/java/java-components/javafx/27/release-notes/)).
-AtlantaFX 3.0.0 targets Java 25 and JavaFX 27 ([release notes](https://github.com/mkpaz/atlantafx/releases/tag/v3.0.0)).
-Maven resolves the JavaFX platform native libraries; a separate JavaFX SDK is
-unnecessary for running this project.
+Build plugins: compiler 3.14.0, Surefire 3.5.3, JavaFX 0.0.8 and exec 3.5.0.
+Maven provides the JavaFX native libraries. No separate JavaFX SDK is needed.
+The ignored local dependency cache is configured in `.mvn/maven.config`.
+Initial dependency downloads need internet access.
 
-Build plugins: compiler 3.14.0, Surefire 3.5.3, JavaFX 0.0.8, exec 3.5.0.
-The project uses the classpath (no module-info.java) to keep FXML and Scene Builder
-integration straightforward. Maven's JavaFX launcher manages the JavaFX module path.
+## Run
 
-## Run in VS Code
+Open this folder in VS Code and select JDK 25 with **Java: Configure Java Runtime**.
+From the project directory:
 
-1. Open this folder in VS Code; allow Maven to import the project.
-2. Select JDK 25 with **Java: Configure Java Runtime** and ensure JAVA_HOME points
-   to the same JDK used by Maven.
-3. In the integrated PowerShell terminal:
+```powershell
+java -version
+mvn -version
+powershell -NoExit -ExecutionPolicy Bypass -File .\scripts\Launch-EventProof.ps1
+```
 
-   ```powershell
-   java -version
-   mvn -version
-   mvn clean compile
-   mvn javafx:run
-   ```
+The launcher defaults to `jdbc:mysql://localhost:3306/eventproof` and user `root`.
+It asks for a masked password when `DB_PASSWORD` is absent. The password stays
+in that terminal's environment and is never written to files. If you already
+have credentials in a PowerShell terminal, run:
 
-The application opens at 1280 × 850 with a minimum size of 1060 × 740. The dashboard
-scrolls vertically on smaller windows. Close its window to stop the process.
+```powershell
+.\scripts\Launch-EventProof.ps1
+# Or:
+mvn compile javafx:run
+```
 
-Maven downloads dependencies into the ignored `.maven-repository/` directory
-configured in `.mvn/maven.config`. This keeps builds working in a restricted
-workspace. Remove that configuration to use your normal user Maven cache.
-Initial builds require internet access.
+Set `DB_URL` and `DB_USER` in the same terminal first if using another server or
+account. These variables and `DB_PASSWORD` are read by `DatabaseConnection`;
+`.env` files are not loaded automatically. Do not commit credentials.
 
-## MySQL setup and credentials
+The window opens at 1280 by 850, with minimum size 1060 by 740.
+Assessment pages scroll vertically; tables resize with the window.
 
-Create the database in MySQL Workbench or the MySQL CLI:
+## Sample database
+
+One database, `eventproof`, contains `venues`, `events` and `incidents`.
+To create the database/tables and seed empty tables:
+
+```powershell
+powershell -NoExit -ExecutionPolicy Bypass -File .\scripts\Setup-DemoDatabase.ps1
+```
+
+The script asks locally for the password. It inserts samples only when **all
+three tables are empty**, preserving existing data and avoiding duplicates.
+Samples contain 3 venues, 3 events and 4 incidents, with upcoming dates based on
+the database server's current date:
+
+| Event | Score | Risk |
+| --- | --- | --- |
+| Tech Fest | 90 | LOW |
+| Sports Meet | 75 | MEDIUM |
+| Cultural Fest | 45 | HIGH |
+
+In MySQL Workbench:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS eventproof
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE eventproof;
+SHOW TABLES;
+SELECT * FROM venues;
+SELECT * FROM events;
+SELECT * FROM incidents;
 ```
 
-Use your local MySQL account with access to this database. In the same PowerShell
-terminal where you run the connection check, set these variables:
+Stage 3 introduces no tables or schema changes. Calculated scores and simulations
+are not stored. Incidents are counted as **Recorded incidents**, since the
+existing schema does not contain an active/resolved field.
+
+For manual setup, the schema and seed SQL are under
+`src/main/resources/com/eventproof/database/`. With DB variables configured:
 
 ```powershell
-$env:DB_URL = 'jdbc:mysql://localhost:3306/eventproof'
-$env:DB_USER = 'your_local_mysql_user'
-$env:DB_PASSWORD = 'your_local_mysql_password'
+mvn compile exec:java "-Dexec.mainClass=com.eventproof.database.DemoDatabaseSetup"
 mvn exec:java "-Dexec.mainClass=com.eventproof.database.DatabaseConnectionCheck"
 ```
-
-Expected success output: `MySQL connection verified. Database: eventproof`.
-The diagnostic exits with a Maven error on missing configuration, rejected
-credentials, unreachable server or failed validation. Connections use five-second
-connect/socket timeouts. DAOs close connections, statements and result sets
-using try-with-resources, commit successful operations and roll back failures.
-
-Environment variables are read by `DatabaseConnection`; a `.env` file is **not**
-automatically loaded. Do not commit real credentials. Controllers contain no
-database access. After verifying your connection, create the three tables:
-
-```powershell
-mvn exec:java "-Dexec.mainClass=com.eventproof.database.DatabaseSchemaSetup"
-```
-
-This explicitly creates missing tables; it does not modify existing tables or
-insert sample data. Use a fresh database if you already have an incompatible
-schema. The SQL lives in `src/main/resources/com/eventproof/database/schema.sql`.
-
-Run the live CRUD integration test against a development database:
-
-```powershell
-$env:EVENTPROOF_DB_TESTS = 'true'
-mvn test "-Dtest=MySqlCrudIntegrationTest"
-Remove-Item Env:EVENTPROOF_DB_TESTS
-```
-
-The test creates uniquely named rows and cleans up those rows in a finally block.
-It verifies CRUD, category restoration, incident history, foreign-key restrictions
-and event-to-incident delete cascading. It is skipped in the normal test suite
-unless explicitly enabled. No passwords are stored in files.
-
-## Review 2 console demo
-
-```powershell
-mvn compile exec:java "-Dexec.mainClass=com.eventproof.demo.Stage2Demo"
-```
-
-This runs without MySQL and demonstrates inheritance, polymorphism, strategy
-selection, explained scores and a caught validation exception. It prints
-Technical = 70 / MEDIUM, Sports = 100 / LOW, Cultural = 70 / MEDIUM for its
-documented sample inputs. These are separate from the GUI's foundation fixtures.
-
-## Scene Builder
-
-Open `src/main/resources/com/eventproof/fxml/Main.fxml` or `Dashboard.fxml`.
-All layouts use standard JavaFX controls plus Ikonli FontIcon.
-In **Library → JAR/FXML Manager**, import these downloaded jars:
-
-- `.maven-repository/org/kordamp/ikonli/ikonli-javafx/12.4.0/ikonli-javafx-12.4.0.jar`
-- `.maven-repository/org/kordamp/ikonli/ikonli-core/12.4.0/ikonli-core-12.4.0.jar`
-- `.maven-repository/org/kordamp/ikonli/ikonli-feather-pack/12.4.0/ikonli-feather-pack-12.4.0.jar`
-
-For the closest preview, load the three CSS files in the preview stylesheet
-settings in order: main.css, components.css, dashboard.css. The app applies the
-AtlantaFX base theme at launch; Scene Builder previews may differ unless its
-AtlantaFX theme support is configured. CSS palette values are defined on
-`.app-root` in main.css; preview Dashboard.fxml within Main.fxml for these values.
-No custom controller factory or custom layout component is required.
-
-## Complete source structure
-
-```text
-EventProof/
-├── .gitignore
-├── .mvn/maven.config
-├── .vscode/extensions.json
-├── pom.xml
-├── README.md
-├── docs/STAGE2.md
-├── src/main/java/com/eventproof/
-│   ├── Main.java
-│   ├── controller/
-│   │   ├── MainController.java
-│   │   ├── DashboardController.java
-│   │   └── PlaceholderController.java
-│   ├── database/
-│   │   ├── DatabaseConnection.java
-│   │   ├── DatabaseConnectionCheck.java
-│   │   ├── ConnectionProvider.java
-│   │   └── DatabaseSchemaSetup.java
-│   ├── demo/Stage2Demo.java
-│   ├── util/
-│   │   ├── Resources.java
-│   │   └── ValidationUtil.java
-│   ├── model/
-│   │   ├── Event.java
-│   │   ├── TechnicalEvent.java
-│   │   ├── SportsEvent.java
-│   │   ├── CulturalEvent.java
-│   │   ├── EventFactory.java
-│   │   ├── EventType.java
-│   │   ├── Venue.java
-│   │   ├── Incident.java
-│   │   ├── IncidentType.java
-│   │   ├── RiskLevel.java
-│   │   ├── ScoreFactor.java
-│   │   ├── ReliabilityAssessment.java
-│   │   └── package-info.java
-│   ├── service/
-│   │   ├── EventService.java
-│   │   ├── VenueService.java
-│   │   ├── IncidentService.java
-│   │   ├── ReliabilityService.java
-│   │   └── package-info.java
-│   ├── dao/
-│   │   ├── CrudDAO.java
-│   │   ├── JdbcDAO.java
-│   │   ├── EventDAO.java
-│   │   ├── VenueDAO.java
-│   │   ├── IncidentDAO.java
-│   │   └── package-info.java
-│   ├── exception/
-│   │   ├── InvalidEventException.java
-│   │   ├── InvalidVenueException.java
-│   │   ├── InvalidIncidentException.java
-│   │   ├── DatabaseException.java
-│   │   ├── RecordNotFoundException.java
-│   │   └── package-info.java
-│   └── strategy/
-│       ├── ReliabilityStrategy.java
-│       ├── PenaltyReliabilityStrategy.java
-│       ├── TechnicalReliabilityStrategy.java
-│       ├── SportsReliabilityStrategy.java
-│       ├── CulturalReliabilityStrategy.java
-│       └── package-info.java
-├── src/main/resources/com/eventproof/
-│   ├── fxml/
-│   │   ├── Main.fxml
-│   │   ├── Dashboard.fxml
-│   │   └── Placeholder.fxml
-│   ├── css/
-│   │   ├── main.css
-│   │   ├── components.css
-│   │   └── dashboard.css
-│   ├── images/.gitkeep
-│   └── database/schema.sql
-└── src/test/java/com/eventproof/
-    ├── FoundationTest.java
-    ├── model/ModelValidationTest.java
-    ├── service/ReliabilityServiceTest.java
-    ├── service/CrudServiceTest.java
-    ├── dao/JdbcFailureTest.java
-    └── dao/MySqlCrudIntegrationTest.java
-```
-
-Generated `target/` and `.maven-repository/` folders are excluded from Git.
-Package documentation describes each layer's responsibility.
 
 ## Verification
 
 ```powershell
 mvn test
-mvn javafx:run
+# Full suite including live MySQL tests, followed by application launch:
+.\scripts\Launch-EventProof.ps1 -Verify
 ```
 
-The GUI smoke test starts JavaFX, loads FXML and CSS, shows and closes a real
-window, visits every navigation item and checks repeat selections and return to
-Dashboard. It requires an interactive graphical desktop. The database
-configuration test checks the helpful missing-URL error; it does not connect to
-MySQL. It also saves a rendered preview to `target/dashboard-preview.png`.
-The test runner may print JavaFX's unnamed-module configuration warning because
-tests use the classpath; the application launcher uses the JavaFX module path.
-Core tests also cover validation, immutable history, strategy weights, boundary
-scores, SQL parameter binding, resource cleanup, rollback and missing records.
-Run the opt-in database commands above to validate your local server separately.
+Normal tests cover models, strategies, SQL failure handling, simulation isolation,
+FXML forms, navigation, search, validation/save dialogs, animation and resizing.
+The suite requires a graphical desktop. Screenshots are saved under ignored
+`target/`. JavaFX can print an unnamed-module diagnostic in the test runner.
 
-## Incremental roadmap
+Two database tests are skipped unless `EVENTPROOF_DB_TESTS=true`.
+The launcher enables them temporarily with `-Verify`. They create unique test
+rows, verify relationships, persistence and the form-to-service-to-JDBC workflow,
+then delete only their own rows. Run them against a local development database.
 
-1. Stage 1: foundation and dashboard skeleton (complete).
-2. Stage 2: models, inheritance, interfaces, custom exceptions, JDBC CRUD,
-   services and reliability engine (implemented; live MySQL verification requires credentials).
-3. Stage 3: complete Event/Venue/Incident forms and connect reliability results
-   to the GUI; then failure simulation and dashboard polish.
-4. Stage 4: end-to-end testing, report, presentation and viva preparation.
+## Architecture
 
-Planned features include event/venue management, incident tracking, reliability
-scoring, risk classification and power/internet/equipment failure simulation.
-Add each stage independently so the application remains runnable throughout.
+```text
+controller/          Navigation, page controllers and FXML form controllers
+service/             CRUD services, AppContext, reliability and simulation
+model/               Immutable entities, event subtypes and result records
+strategy/            ReliabilityStrategy and category-specific implementations
+dao/                 Prepared-statement JDBC CRUD and aggregate loading
+database/            Connection configuration, schema and sample setup
+exception/           Validation, missing-record and database exceptions
+util/                View loading, table styling, dialogs and friendly errors
+```
+
+Controllers contain no SQL. JDBC operations run on a shared background worker;
+JavaFX updates run on the application thread. Reliability retains the Stage 2
+strategy engine. Simulation adds one temporary deduction without calling a DAO.
+
+## Scene Builder and Review 2
+
+Open FXML files under `src/main/resources/com/eventproof/fxml/`.
+Import the Ikonli JavaFX, core and Feather-pack 12.4.0 jars from
+`.maven-repository/org/kordamp/ikonli/` in Scene Builder's library manager.
+Load `main.css`, `components.css`, `dashboard.css` and `workspace.css` in order.
+Palette values live on `.app-root`; preview pages within Main.fxml.
+
+The original OOP console demonstration still works without MySQL:
+
+```powershell
+mvn compile exec:java "-Dexec.mainClass=com.eventproof.demo.Stage2Demo"
+```
+
+Stage 4: prepare the report, screenshots, presentation, viva answers and submission
+package; perform final manual usability checks and teacher demo rehearsal.

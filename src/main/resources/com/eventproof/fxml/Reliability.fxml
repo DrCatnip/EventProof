@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<ScrollPane xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.ReliabilityController" fitToWidth="true" hbarPolicy="NEVER" styleClass="dashboard-scroll">
+<content><VBox spacing="22" styleClass="workspace-page">
+<HBox alignment="CENTER_LEFT"><VBox spacing="6"><Label text="Event Reliability" styleClass="page-title"/><Label text="Understand readiness, risk and the factors behind each score." styleClass="muted"/></VBox><Region HBox.hgrow="ALWAYS"/><Button text="Refresh" onAction="#refresh"><graphic><FontIcon iconLiteral="fth-refresh-cw"/></graphic></Button></HBox>
+<HBox spacing="14" alignment="CENTER_LEFT"><Label text="Event" styleClass="small-heading"/><ComboBox fx:id="event" promptText="Select an event" maxWidth="Infinity" HBox.hgrow="ALWAYS"/></HBox>
+<fx:include fx:id="assessment" source="AssessmentPane.fxml"/>
+<Label text="LOW: 80–100     MEDIUM: 60–79     HIGH: 0–59. Scores use the current venue and recorded incident history." wrapText="true" styleClass="footnote"/>
+<HBox alignment="CENTER_LEFT" spacing="10"><ProgressIndicator fx:id="busy" prefWidth="18" prefHeight="18" visible="false" managed="false"/><Label fx:id="status" text="Ready" wrapText="true" styleClass="muted"/></HBox>
+</VBox></content></ScrollPane>

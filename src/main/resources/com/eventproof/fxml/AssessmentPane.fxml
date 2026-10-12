@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.shape.Circle?>
+<HBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.AssessmentController" spacing="30" styleClass="card,assessment-card">
+<VBox alignment="CENTER" spacing="16" minWidth="230" prefWidth="280" HBox.hgrow="ALWAYS">
+<Label text="EVENT READINESS" styleClass="eyebrow"/>
+<StackPane prefWidth="200" minHeight="180"><Circle radius="76" fill="TRANSPARENT" stroke="#314158" strokeWidth="10"/><Circle fx:id="ring" radius="76" fill="TRANSPARENT" stroke="#06B6D4" strokeWidth="10" rotate="-90"/><VBox alignment="CENTER"><Label fx:id="score" text="--" styleClass="score"/><Label text="/ 100" styleClass="muted"/></VBox></StackPane>
+<Label fx:id="risk" text="NO ASSESSMENT" styleClass="badge"/>
+<Label fx:id="summary" wrapText="true" alignment="CENTER" maxWidth="300" styleClass="muted"/>
+</VBox>
+<VBox spacing="18" prefWidth="420" HBox.hgrow="ALWAYS">
+<Label text="Reliability Factors" styleClass="section-title"/>
+<VBox fx:id="factors" spacing="18"/>
+<Label text="Bars show remaining score contribution: 100 minus each deduction." wrapText="true" styleClass="footnote"/>
+</VBox>
+</HBox>

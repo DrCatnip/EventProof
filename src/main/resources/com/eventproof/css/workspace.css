@@ -1,0 +1,23 @@
+.workspace-page { -fx-padding: 24 30 28 30; }
+.editor-content { -fx-padding: 8 6; }
+.primary-button { -fx-background-color: -ep-primary; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 7; -fx-padding: 10 16; -fx-cursor: hand; }
+.primary-button:hover { -fx-background-color: #5594F8; }
+.primary-button .ikonli-font-icon { -fx-icon-color: white; }
+.danger-button { -fx-text-fill: #FDA4AF; }
+.danger-button .ikonli-font-icon { -fx-icon-color: #FDA4AF; }
+.button .ikonli-font-icon { -fx-icon-size: 16px; }
+.button { -fx-background-radius: 7; -fx-cursor: hand; }
+.text-field, .combo-box, .date-picker { -fx-pref-height: 38; }
+.error-text { -fx-text-fill: #FDA4AF; }
+.factor-value { -fx-text-fill: -ep-secondary; -fx-font-weight: bold; }
+.assessment-card { -fx-padding: 24; }
+.table-view { -fx-background-color: -ep-card; -fx-border-color: #2A3A52; -fx-border-radius: 9; -fx-background-radius: 9; }
+.table-view .column-header-background { -fx-background-color: #17253B; }
+.table-row-cell { -fx-cell-size: 48; }
+.table-row-cell:odd { -fx-background-color: #1B283D; }
+.table-row-cell:even { -fx-background-color: -ep-card; }
+.table-row-cell:hover { -fx-background-color: #263C57; }
+.table-row-cell:selected { -fx-background-color: #29476A; }
+.table-cell { -fx-alignment: center-left; -fx-padding: 10 12; -fx-border-width: 0; }
+.table-view .placeholder .label { -fx-text-fill: -ep-muted; -fx-wrap-text: true; }
+.dialog-pane { -fx-background-color: -ep-background; }

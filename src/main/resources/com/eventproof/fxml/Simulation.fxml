@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<ScrollPane xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.SimulationController" fitToWidth="true" hbarPolicy="NEVER" styleClass="dashboard-scroll">
+<content><VBox spacing="22" styleClass="workspace-page">
+<HBox alignment="CENTER_LEFT"><VBox spacing="6"><Label text="Failure Simulation" styleClass="page-title"/><Label text="Explore disruption scenarios before your event goes live." styleClass="muted"/></VBox><Region HBox.hgrow="ALWAYS"/><Label text="TEMPORARY SCENARIO" styleClass="demo-badge"/><Button text="Refresh" onAction="#refresh"><graphic><FontIcon iconLiteral="fth-refresh-cw"/></graphic></Button></HBox>
+<HBox spacing="16"><VBox spacing="8" HBox.hgrow="ALWAYS"><Label text="Event"/><ComboBox fx:id="event" promptText="Select an event" maxWidth="Infinity"/></VBox><VBox spacing="8" HBox.hgrow="ALWAYS"><Label text="Failure scenario"/><ComboBox fx:id="scenario" maxWidth="Infinity"/></VBox></HBox>
+<HBox spacing="16" alignment="CENTER_LEFT" styleClass="card"><VBox spacing="5"><Label text="STORED RELIABILITY" styleClass="eyebrow"/><Label fx:id="baseline" text="-- / 100" styleClass="section-title"/></VBox><Region HBox.hgrow="ALWAYS"/><Button fx:id="resetButton" text="Reset" onAction="#reset"/><Button fx:id="simulateButton" text="Simulate failure" onAction="#simulate" styleClass="primary-button"><graphic><FontIcon iconLiteral="fth-zap"/></graphic></Button></HBox>
+<Label fx:id="change" text="Select an event to start." styleClass="small-heading"/>
+<fx:include fx:id="assessment" source="AssessmentPane.fxml"/>
+<Label text="A scenario adds a temporary operational deduction to the existing readiness score. Nothing is saved, and scenarios do not accumulate." wrapText="true" styleClass="footnote"/>
+<HBox alignment="CENTER_LEFT" spacing="10"><ProgressIndicator fx:id="busy" prefWidth="18" prefHeight="18" visible="false" managed="false"/><Label fx:id="status" text="Ready" wrapText="true" styleClass="muted"/></HBox>
+</VBox></content></ScrollPane>

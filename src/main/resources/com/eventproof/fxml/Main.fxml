@@ -9,7 +9,7 @@
     <Label text="EVENTPROOF" styleClass="brand"/>
     <Label text="OPERATIONS CONSOLE" styleClass="eyebrow"/>
     <Region HBox.hgrow="ALWAYS"/>
-    <Label text="DEMO WORKSPACE" styleClass="demo-badge"/>
+    <Label text="LOCAL WORKSPACE" styleClass="demo-badge"/>
     <Button styleClass="icon-button" accessibleText="Notifications coming soon" disable="true"><graphic><FontIcon iconLiteral="fth-bell"/></graphic><tooltip><Tooltip text="Notifications coming soon"/></tooltip></Button>
     <Button styleClass="icon-button" accessibleText="Settings coming soon" disable="true"><graphic><FontIcon iconLiteral="fth-settings"/></graphic></Button>
   </HBox></top>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox xmlns="http://javafx.com/javafx/27" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventproof.controller.form.IncidentFormController" spacing="10" prefWidth="450">
+<Label text="Event"/><ComboBox fx:id="event" maxWidth="Infinity"/>
+<Label text="Incident type"/><ComboBox fx:id="type" maxWidth="Infinity"/>
+<Label text="Date"/><DatePicker fx:id="date" maxWidth="Infinity"/>
+<Label text="Description"/><TextArea fx:id="description" promptText="What happened?" prefRowCount="5" wrapText="true"/>
+<Label text="Recorded incidents are included in the event reliability assessment." wrapText="true" styleClass="footnote"/>
+</VBox>
