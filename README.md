@@ -1,8 +1,12 @@
 # EventProof
 
 Event Reliability Management System — a college Advanced OOP Java desktop project.
-This first stage provides a working operations dashboard and the architecture for
-incremental development. Every dashboard value is static demo data.
+Stages 1 and 2 provide a working operations dashboard and an Advanced OOP core:
+validated models, JDBC CRUD, service boundaries and category-specific reliability
+strategies. Every GUI dashboard value remains static demo data.
+
+See [Stage 2 / Review 2 guide](docs/STAGE2.md) for the rules, OOP examples,
+architecture diagrams and database verification steps.
 
 ## What works
 
@@ -12,16 +16,22 @@ incremental development. Every dashboard value is static demo data.
 - Restrained dashboard entrance and page fade animations; navigation hover feedback.
 - Independent JDBC connection infrastructure and an opt-in connection diagnostic.
 - GUI starts without MySQL or database credentials.
+- Abstract Event with TechnicalEvent, SportsEvent and CulturalEvent subclasses.
+- Venue and Incident models, validation exceptions and database error handling.
+- Three-table MySQL schema and transactional, prepared-statement JDBC CRUD.
+- Reliability strategy interface, score breakdown and low/medium/high risk levels.
+- In-memory console demonstration for Review 2.
 
 Events, Venues, Incidents, Reliability, Simulation and Settings currently show
 placeholders. Header notification/settings controls are reserved for future work.
-No CRUD, schema migrations, reliability calculation, simulation or login is implemented.
+CRUD and reliability calculation work in the core layer. Their GUI forms, failure
+simulation and schema migrations are scheduled for later stages.
 
 ## Stack and prerequisites
 
 Install JDK **25**, Maven **3.9+**, VS Code with **Extension Pack for Java**, and
-Scene Builder (a current version supporting your FXML runtime). MySQL 8.0+ is only
-needed for the optional database check.
+Scene Builder (a current version supporting your FXML runtime). MySQL 8.0.16+ is
+needed for JDBC CRUD and enforced schema constraints.
 
 Pinned dependencies:
 
@@ -66,7 +76,7 @@ Initial builds require internet access.
 
 ## MySQL setup and credentials
 
-Create only the empty database for now in MySQL Workbench or the MySQL CLI:
+Create the database in MySQL Workbench or the MySQL CLI:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS eventproof
@@ -86,12 +96,44 @@ mvn exec:java "-Dexec.mainClass=com.eventproof.database.DatabaseConnectionCheck"
 Expected success output: `MySQL connection verified. Database: eventproof`.
 The diagnostic exits with a Maven error on missing configuration, rejected
 credentials, unreachable server or failed validation. Connections use five-second
-connect/socket timeouts and are closed using try-with-resources. Each future DAO
-should similarly close every connection, statement and result set.
+connect/socket timeouts. DAOs close connections, statements and result sets
+using try-with-resources, commit successful operations and roll back failures.
 
 Environment variables are read by `DatabaseConnection`; a `.env` file is **not**
-automatically loaded. Do not commit real credentials. No tables or DAOs are needed
-at this stage, and controllers contain no database access.
+automatically loaded. Do not commit real credentials. Controllers contain no
+database access. After verifying your connection, create the three tables:
+
+```powershell
+mvn exec:java "-Dexec.mainClass=com.eventproof.database.DatabaseSchemaSetup"
+```
+
+This explicitly creates missing tables; it does not modify existing tables or
+insert sample data. Use a fresh database if you already have an incompatible
+schema. The SQL lives in `src/main/resources/com/eventproof/database/schema.sql`.
+
+Run the live CRUD integration test against a development database:
+
+```powershell
+$env:EVENTPROOF_DB_TESTS = 'true'
+mvn test "-Dtest=MySqlCrudIntegrationTest"
+Remove-Item Env:EVENTPROOF_DB_TESTS
+```
+
+The test creates uniquely named rows and cleans up those rows in a finally block.
+It verifies CRUD, category restoration, incident history, foreign-key restrictions
+and event-to-incident delete cascading. It is skipped in the normal test suite
+unless explicitly enabled. No passwords are stored in files.
+
+## Review 2 console demo
+
+```powershell
+mvn compile exec:java "-Dexec.mainClass=com.eventproof.demo.Stage2Demo"
+```
+
+This runs without MySQL and demonstrates inheritance, polymorphism, strategy
+selection, explained scores and a caught validation exception. It prints
+Technical = 70 / MEDIUM, Sports = 100 / LOW, Cultural = 70 / MEDIUM for its
+documented sample inputs. These are separate from the GUI's foundation fixtures.
 
 ## Scene Builder
 
@@ -119,6 +161,7 @@ EventProof/
 ├── .vscode/extensions.json
 ├── pom.xml
 ├── README.md
+├── docs/STAGE2.md
 ├── src/main/java/com/eventproof/
 │   ├── Main.java
 │   ├── controller/
@@ -127,13 +170,54 @@ EventProof/
 │   │   └── PlaceholderController.java
 │   ├── database/
 │   │   ├── DatabaseConnection.java
-│   │   └── DatabaseConnectionCheck.java
-│   ├── util/Resources.java
-│   ├── model/package-info.java
-│   ├── service/package-info.java
-│   ├── dao/package-info.java
-│   ├── exception/package-info.java
-│   └── strategy/package-info.java
+│   │   ├── DatabaseConnectionCheck.java
+│   │   ├── ConnectionProvider.java
+│   │   └── DatabaseSchemaSetup.java
+│   ├── demo/Stage2Demo.java
+│   ├── util/
+│   │   ├── Resources.java
+│   │   └── ValidationUtil.java
+│   ├── model/
+│   │   ├── Event.java
+│   │   ├── TechnicalEvent.java
+│   │   ├── SportsEvent.java
+│   │   ├── CulturalEvent.java
+│   │   ├── EventFactory.java
+│   │   ├── EventType.java
+│   │   ├── Venue.java
+│   │   ├── Incident.java
+│   │   ├── IncidentType.java
+│   │   ├── RiskLevel.java
+│   │   ├── ScoreFactor.java
+│   │   ├── ReliabilityAssessment.java
+│   │   └── package-info.java
+│   ├── service/
+│   │   ├── EventService.java
+│   │   ├── VenueService.java
+│   │   ├── IncidentService.java
+│   │   ├── ReliabilityService.java
+│   │   └── package-info.java
+│   ├── dao/
+│   │   ├── CrudDAO.java
+│   │   ├── JdbcDAO.java
+│   │   ├── EventDAO.java
+│   │   ├── VenueDAO.java
+│   │   ├── IncidentDAO.java
+│   │   └── package-info.java
+│   ├── exception/
+│   │   ├── InvalidEventException.java
+│   │   ├── InvalidVenueException.java
+│   │   ├── InvalidIncidentException.java
+│   │   ├── DatabaseException.java
+│   │   ├── RecordNotFoundException.java
+│   │   └── package-info.java
+│   └── strategy/
+│       ├── ReliabilityStrategy.java
+│       ├── PenaltyReliabilityStrategy.java
+│       ├── TechnicalReliabilityStrategy.java
+│       ├── SportsReliabilityStrategy.java
+│       ├── CulturalReliabilityStrategy.java
+│       └── package-info.java
 ├── src/main/resources/com/eventproof/
 │   ├── fxml/
 │   │   ├── Main.fxml
@@ -143,13 +227,19 @@ EventProof/
 │   │   ├── main.css
 │   │   ├── components.css
 │   │   └── dashboard.css
-│   └── images/.gitkeep
-└── src/test/java/com/eventproof/FoundationTest.java
+│   ├── images/.gitkeep
+│   └── database/schema.sql
+└── src/test/java/com/eventproof/
+    ├── FoundationTest.java
+    ├── model/ModelValidationTest.java
+    ├── service/ReliabilityServiceTest.java
+    ├── service/CrudServiceTest.java
+    ├── dao/JdbcFailureTest.java
+    └── dao/MySqlCrudIntegrationTest.java
 ```
 
 Generated `target/` and `.maven-repository/` folders are excluded from Git.
-The empty architecture packages document intended responsibilities without
-introducing speculative implementations.
+Package documentation describes each layer's responsibility.
 
 ## Verification
 
@@ -165,18 +255,18 @@ configuration test checks the helpful missing-URL error; it does not connect to
 MySQL. It also saves a rendered preview to `target/dashboard-preview.png`.
 The test runner may print JavaFX's unnamed-module configuration warning because
 tests use the classpath; the application launcher uses the JavaFX module path.
-Run the opt-in diagnostic above to validate your local server separately.
+Core tests also cover validation, immutable history, strategy weights, boundary
+scores, SQL parameter binding, resource cleanup, rollback and missing records.
+Run the opt-in database commands above to validate your local server separately.
 
 ## Incremental roadmap
 
-1. Foundation and dashboard skeleton (this stage).
-2. Event model, validation, MySQL events table and JDBC EventDAO; replace the
-   Events placeholder with a small create/list workflow.
-3. Venue model and event-to-venue assignment.
-4. Incident recording and resolution.
-5. Reliability service with interchangeable strategy implementations.
-6. Failure simulation and live visual score updates.
-7. Final validation, presentation polish and packaging.
+1. Stage 1: foundation and dashboard skeleton (complete).
+2. Stage 2: models, inheritance, interfaces, custom exceptions, JDBC CRUD,
+   services and reliability engine (implemented; live MySQL verification requires credentials).
+3. Stage 3: complete Event/Venue/Incident forms and connect reliability results
+   to the GUI; then failure simulation and dashboard polish.
+4. Stage 4: end-to-end testing, report, presentation and viva preparation.
 
 Planned features include event/venue management, incident tracking, reliability
 scoring, risk classification and power/internet/equipment failure simulation.

@@ -1,2 +1,2 @@
-/** Event and venue domain objects will be introduced in the next development stage. */
+/** Validated, immutable event aggregates, venue/incident models and assessment results. */
 package com.eventproof.model;

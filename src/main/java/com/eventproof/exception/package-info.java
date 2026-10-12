@@ -1,2 +1,2 @@
-/** Future application-specific exceptions. */
+/** Domain validation, missing-record and database failure exceptions. */
 package com.eventproof.exception;
